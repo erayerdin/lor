@@ -15,6 +15,8 @@
 use std::fmt::Debug;
 
 /// A trait for `Result` to log the value and error of it.
+/// If `Result` is `Ok`, the log level is trace while
+/// if `Result` is `Err`, the log level is error.
 pub trait ResultLog<T, E> {
     /// Simply logs the `Ok` and `Err`.
     fn log(self) -> Result<T, E>;
