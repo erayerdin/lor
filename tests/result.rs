@@ -54,3 +54,15 @@ fn log_format_with_err(r_err: Result<&str, &str>) {
     );
     assert_eq!(r, Err("err"));
 }
+
+#[rstest]
+fn log_format_ok_with_ok(r_ok: Result<&str, &str>) {
+    let r = r_ok.log_format_ok("Result is ok and value is: {v}");
+    assert_eq!(r, Ok("ok"));
+}
+
+#[rstest]
+fn log_format_ok_with_err(r_err: Result<&str, &str>) {
+    let r = r_err.log_format_ok("Result is ok and value is: {v}");
+    assert_eq!(r, Err("err"));
+}

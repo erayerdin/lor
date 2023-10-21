@@ -24,6 +24,10 @@ pub trait ResultLog<T, E> {
     /// the value of `Ok` and `{e}` in `err` parameter
     /// will be replaced with the value of `Err`.
     fn log_format(self, ok: &str, err: &str) -> Result<T, E>;
+
+    // Logs the `Ok` with custom format. `{v}` in `ok`
+    // parameter will be replaced with the value of `Ok`.
+    fn log_format_ok(self, ok: &str) -> Result<T, E>;
 }
 
 impl<T, E> ResultLog<T, E> for Result<T, E>
@@ -48,5 +52,9 @@ where
                 Err(e)
             }
         }
+    }
+
+    fn log_format_ok(self, ok: &str) -> Result<T, E> {
+        self.log_format(ok, "Err({e})")
     }
 }
