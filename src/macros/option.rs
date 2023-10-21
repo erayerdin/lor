@@ -12,6 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/// A macro to log the value of an Option. You can simply use it as `olog!(o)`
+/// where `o` is type of `Option` or you can provide additional formatting if
+/// the value is `Some` by using `olog!(o, "The value is {v}")`.
 #[macro_export]
 macro_rules! olog {
     ($o:expr, $m:literal) => {{
