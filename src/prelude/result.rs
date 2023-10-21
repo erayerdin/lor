@@ -11,3 +11,55 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
+use std::fmt::Debug;
+
+trait ResultLog<T, E> {
+    fn log(self) -> Result<T, E>;
+}
+
+impl<T, E> ResultLog<T, E> for Result<T, E>
+where
+    T: Debug,
+    E: Debug,
+{
+    fn log(self) -> Result<T, E> {
+        match self {
+            Ok(v) => {
+                log::trace!("Ok({v:?})");
+                Ok(v)
+            }
+            Err(e) => {
+                log::error!("Err({e:?})");
+                Err(e)
+            }
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[fixture]
+    fn r_ok<'a>() -> Result<&'a str, &'a str> {
+        Result::Ok("ok")
+    }
+
+    #[fixture]
+    fn r_err<'a>() -> Result<&'a str, &'a str> {
+        Result::Err("err")
+    }
+
+    #[rstest]
+    fn log_ok(r_ok: Result<&str, &str>) {
+        let r = r_ok.log();
+        assert_eq!(r, Ok("ok"));
+    }
+
+    #[rstest]
+    fn log_err(r_err: Result<&str, &str>) {
+        let r = r_err.log();
+        assert_eq!(r, Err("err"));
+    }
+}

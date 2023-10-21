@@ -12,4 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#[cfg(test)]
+#[macro_use]
+extern crate rstest;
+
 pub mod prelude;
