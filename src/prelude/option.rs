@@ -37,7 +37,10 @@ where
                 log::trace!("{msg}");
                 Some(v)
             }
-            None => None,
+            None => {
+                log::trace!("None");
+                None
+            }
         }
     }
 
