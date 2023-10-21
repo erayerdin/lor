@@ -12,8 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-mod option;
-mod result;
+use rstest::{fixture, rstest};
+use tracer::prelude::OptionLog;
 
-pub use option::OptionLog;
-pub use result::ResultLog;
+#[fixture]
+fn o_some<'a>() -> Option<&'a str> {
+    Some("foo")
+}
+
+#[fixture]
+fn o_none<'a>() -> Option<&'a str> {
+    None
+}
+
+#[rstest]
+fn log_format_with_some(o_some: Option<&str>) {
+    let o = o_some.log_format("There is some value and it is {v}.");
+    assert_eq!(o, Some("foo"))
+}
+
+#[rstest]
+fn log_format_with_none(o_none: Option<&str>) {
+    let o = o_none.log_format("There is no value.");
+    assert_eq!(o, None)
+}
