@@ -60,3 +60,15 @@ fn log_format_err_with_err(r_err: Result<&str, &str>) {
     let r = rlog!(r_err, err = "Result is error: {e}");
     assert_eq!(r, Err("err"));
 }
+
+#[rstest]
+fn log_with_ok(r_ok: Result<&str, &str>) {
+    let r = rlog!(r_ok);
+    assert_eq!(r, Ok("ok"));
+}
+
+#[rstest]
+fn log_with_err(r_err: Result<&str, &str>) {
+    let r = rlog!(r_err);
+    assert_eq!(r, Err("err"));
+}

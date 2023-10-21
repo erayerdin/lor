@@ -47,4 +47,8 @@ macro_rules! rlog {
     ($r:expr, err=$err:literal) => {{
         $crate::rlog!($r, ok = "Ok({v})", err = $err)
     }};
+
+    ($r:expr) => {{
+        $crate::rlog!($r, ok = "Ok({v})", err = "Err({e})")
+    }};
 }
