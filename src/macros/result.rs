@@ -12,6 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/// A macro to log the value of a Result. Possible use cases are:
+///
+///  - `rlog!(r)` for simple logging
+///  - `rlog!(r, ok = "The result is Ok and the value is {v}.")` where
+/// `v` is replaced by inner value of Result's Ok type.
+///  - `rlog!(r, err = "The result is Err and the error is {e}.")` where
+/// `e` is replaced by inner value of Result's Err type.
+///  - `rlog!(r, ok = "The result is Ok and the value is {v}.", err = "The result is Err and the error is {e}.")`
+/// where `v` and `e` are replaced by inner value of Result's Ok or Err types respectively.
 #[macro_export]
 macro_rules! rlog {
     ($r:expr, ok=$ok:literal, err=$err:literal) => {{
