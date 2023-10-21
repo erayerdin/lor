@@ -13,36 +13,43 @@
 // limitations under the License.
 
 use rstest::{fixture, rstest};
+#[cfg(feature = "macro")]
 use tracer::olog;
 
+#[cfg(feature = "macro")]
 #[fixture]
 fn o_some<'a>() -> Option<&'a str> {
     Some("foo")
 }
 
+#[cfg(feature = "macro")]
 #[fixture]
 fn o_none<'a>() -> Option<&'a str> {
     None
 }
 
+#[cfg(feature = "macro")]
 #[rstest]
 fn log_format_with_some(o_some: Option<&str>) {
     let o = olog!(o_some, "The value is {v}");
     assert_eq!(o, Some("foo"));
 }
 
+#[cfg(feature = "macro")]
 #[rstest]
 fn log_format_with_none(o_none: Option<&str>) {
     let o = olog!(o_none, "The value is {v}");
     assert_eq!(o, None);
 }
 
+#[cfg(feature = "macro")]
 #[rstest]
 fn log_with_some(o_some: Option<&str>) {
     let o = olog!(o_some);
     assert_eq!(o, Some("foo"));
 }
 
+#[cfg(feature = "macro")]
 #[rstest]
 fn log_with_none(o_none: Option<&str>) {
     let o = olog!(o_none);

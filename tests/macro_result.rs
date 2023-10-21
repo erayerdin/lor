@@ -13,60 +13,71 @@
 // limitations under the License.
 
 use rstest::{fixture, rstest};
+#[cfg(feature = "macro")]
 use tracer::rlog;
 
+#[cfg(feature = "macro")]
 #[fixture]
 fn r_ok<'a>() -> Result<&'a str, &'a str> {
     Ok("ok")
 }
 
+#[cfg(feature = "macro")]
 #[fixture]
 fn r_err<'a>() -> Result<&'a str, &'a str> {
     Err("err")
 }
 
+#[cfg(feature = "macro")]
 #[rstest]
 fn log_format_with_ok(r_ok: Result<&str, &str>) {
     let r = rlog!(r_ok, ok = "Result is ok: {v}", err = "Result is err: {e}");
     assert_eq!(r, Ok("ok"));
 }
 
+#[cfg(feature = "macro")]
 #[rstest]
 fn log_format_with_err(r_err: Result<&str, &str>) {
     let r = rlog!(r_err, ok = "Result is ok: {v}", err = "Result is err: {e}");
     assert_eq!(r, Err("err"));
 }
 
+#[cfg(feature = "macro")]
 #[rstest]
 fn log_format_ok_with_ok(r_ok: Result<&str, &str>) {
     let r = rlog!(r_ok, ok = "Result is ok: {v}");
     assert_eq!(r, Ok("ok"));
 }
 
+#[cfg(feature = "macro")]
 #[rstest]
 fn log_format_ok_with_err(r_err: Result<&str, &str>) {
     let r = rlog!(r_err, ok = "Result is ok: {v}");
     assert_eq!(r, Err("err"));
 }
 
+#[cfg(feature = "macro")]
 #[rstest]
 fn log_format_err_with_ok(r_ok: Result<&str, &str>) {
     let r = rlog!(r_ok, err = "Result is error: {e}");
     assert_eq!(r, Ok("ok"));
 }
 
+#[cfg(feature = "macro")]
 #[rstest]
 fn log_format_err_with_err(r_err: Result<&str, &str>) {
     let r = rlog!(r_err, err = "Result is error: {e}");
     assert_eq!(r, Err("err"));
 }
 
+#[cfg(feature = "macro")]
 #[rstest]
 fn log_with_ok(r_ok: Result<&str, &str>) {
     let r = rlog!(r_ok);
     assert_eq!(r, Ok("ok"));
 }
 
+#[cfg(feature = "macro")]
 #[rstest]
 fn log_with_err(r_err: Result<&str, &str>) {
     let r = rlog!(r_err);

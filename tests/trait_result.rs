@@ -13,30 +13,36 @@
 // limitations under the License.
 
 use rstest::{fixture, rstest};
+#[cfg(feature = "trait")]
 use tracer::prelude::ResultLog;
 
+#[cfg(feature = "trait")]
 #[fixture]
 fn r_ok<'a>() -> Result<&'a str, &'a str> {
     Result::Ok("ok")
 }
 
+#[cfg(feature = "trait")]
 #[fixture]
 fn r_err<'a>() -> Result<&'a str, &'a str> {
     Result::Err("err")
 }
 
+#[cfg(feature = "trait")]
 #[rstest]
 fn log_with_ok(r_ok: Result<&str, &str>) {
     let r = r_ok.log();
     assert_eq!(r, Ok("ok"));
 }
 
+#[cfg(feature = "trait")]
 #[rstest]
 fn log_with_err(r_err: Result<&str, &str>) {
     let r = r_err.log();
     assert_eq!(r, Err("err"));
 }
 
+#[cfg(feature = "trait")]
 #[rstest]
 fn log_format_with_ok(r_ok: Result<&str, &str>) {
     let r = r_ok.log_format(
@@ -46,6 +52,7 @@ fn log_format_with_ok(r_ok: Result<&str, &str>) {
     assert_eq!(r, Ok("ok"));
 }
 
+#[cfg(feature = "trait")]
 #[rstest]
 fn log_format_with_err(r_err: Result<&str, &str>) {
     let r = r_err.log_format(
@@ -55,24 +62,28 @@ fn log_format_with_err(r_err: Result<&str, &str>) {
     assert_eq!(r, Err("err"));
 }
 
+#[cfg(feature = "trait")]
 #[rstest]
 fn log_format_ok_with_ok(r_ok: Result<&str, &str>) {
     let r = r_ok.log_format_ok("Result is ok and value is: {v}");
     assert_eq!(r, Ok("ok"));
 }
 
+#[cfg(feature = "trait")]
 #[rstest]
 fn log_format_ok_with_err(r_err: Result<&str, &str>) {
     let r = r_err.log_format_ok("Result is ok and value is: {v}");
     assert_eq!(r, Err("err"));
 }
 
+#[cfg(feature = "trait")]
 #[rstest]
 fn log_format_err_with_ok(r_ok: Result<&str, &str>) {
     let r = r_ok.log_format_err("Result is err and error is: {e}");
     assert_eq!(r, Ok("ok"));
 }
 
+#[cfg(feature = "trait")]
 #[rstest]
 fn log_format_err_with_err(r_err: Result<&str, &str>) {
     let r = r_err.log_format_err("Result is err and error is: {e}");

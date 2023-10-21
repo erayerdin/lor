@@ -13,36 +13,43 @@
 // limitations under the License.
 
 use rstest::{fixture, rstest};
+#[cfg(feature = "trait")]
 use tracer::prelude::OptionLog;
 
+#[cfg(feature = "trait")]
 #[fixture]
 fn o_some<'a>() -> Option<&'a str> {
     Some("foo")
 }
 
+#[cfg(feature = "trait")]
 #[fixture]
 fn o_none<'a>() -> Option<&'a str> {
     None
 }
 
+#[cfg(feature = "trait")]
 #[rstest]
 fn log_format_with_some(o_some: Option<&str>) {
     let o = o_some.log_format("There is some value and it is {v}.");
     assert_eq!(o, Some("foo"))
 }
 
+#[cfg(feature = "trait")]
 #[rstest]
 fn log_format_with_none(o_none: Option<&str>) {
     let o = o_none.log_format("There is no value.");
     assert_eq!(o, None)
 }
 
+#[cfg(feature = "trait")]
 #[rstest]
 fn log_with_some(o_some: Option<&str>) {
     let o = o_some.log();
     assert_eq!(o, Some("foo"))
 }
 
+#[cfg(feature = "trait")]
 #[rstest]
 fn log_with_none(o_none: Option<&str>) {
     let o = o_none.log();
