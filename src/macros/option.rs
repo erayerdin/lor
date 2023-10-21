@@ -29,4 +29,8 @@ macro_rules! olog {
             }
         }
     }};
+
+    ($o:expr) => {{
+        olog!($o, "Some({v})")
+    }};
 }

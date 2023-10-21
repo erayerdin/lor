@@ -36,3 +36,15 @@ fn log_format_with_none(o_none: Option<&str>) {
     let o = olog!(o_none, "The value is {v}");
     assert_eq!(o, None);
 }
+
+#[rstest]
+fn log_with_some(o_some: Option<&str>) {
+    let o = olog!(o_some);
+    assert_eq!(o, Some("foo"));
+}
+
+#[rstest]
+fn log_with_none(o_none: Option<&str>) {
+    let o = olog!(o_none);
+    assert_eq!(o, None);
+}
