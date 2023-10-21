@@ -12,5 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub mod macros;
-pub mod prelude;
+#[macro_export]
+macro_rules! olog {
+    ($o:expr, $m:literal) => {{
+        use $crate::macros::log;
+
+        match $o {
+            Some(v) => {
+                let msg = $m.replace("{v}", &format!("{:?}", v));
+                log::trace!("{msg}");
+                Some(v)
+            }
+            None => {
+                log::trace!("None");
+                None
+            }
+        }
+    }};
+}

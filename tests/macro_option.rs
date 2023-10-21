@@ -12,5 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub mod macros;
-pub mod prelude;
+use rstest::{fixture, rstest};
+use tracer::olog;
+
+#[fixture]
+fn o_some<'a>() -> Option<&'a str> {
+    Some("foo")
+}
+
+#[fixture]
+fn o_none<'a>() -> Option<&'a str> {
+    None
+}
+
+#[rstest]
+fn log_format_with_some(o_some: Option<&str>) {
+    let o = olog!(o_some, "The value is {v}");
+    assert_eq!(o, Some("foo"));
+}
+
+#[rstest]
+fn log_format_with_none(o_none: Option<&str>) {
+    let o = olog!(o_none, "The value is {v}");
+    assert_eq!(o, None);
+}
