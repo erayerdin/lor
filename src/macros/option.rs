@@ -12,28 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use std::fmt::Debug;
+/// A macro to log the value of an Option. You can simply use it as `olog!(o)`
+/// where `o` is type of `Option` or you can provide additional formatting if
+/// the value is `Some` by using `olog!(o, "The value is {v}")`.
+#[macro_export]
+macro_rules! olog {
+    ($o:expr, $some:literal) => {{
+        use $crate::macros::log;
 
-/// A trait for `Option` to log the value of it.
-/// It always uses trace level.
-pub trait OptionLog<T> {
-    /// Logs the value of the option with custom
-    /// format. `{v}` in `some` parameter will be
-    /// replaced with the value of `Some`.
-    fn log_format(self, some: &str) -> Option<T>;
-
-    /// Simply logs the value of the option.
-    fn log(self) -> Option<T>;
-}
-
-impl<T> OptionLog<T> for Option<T>
-where
-    T: Debug,
-{
-    fn log_format(self, some: &str) -> Option<T> {
-        match self {
+        match $o {
             Some(v) => {
-                let msg = some.replace("{v}", &format!("{v:?}"));
+                let msg = $some.replace("{v}", &format!("{:?}", v));
                 log::trace!("{msg}");
                 Some(v)
             }
@@ -42,9 +31,9 @@ where
                 None
             }
         }
-    }
+    }};
 
-    fn log(self) -> Option<T> {
-        self.log_format("Some({v})")
-    }
+    ($o:expr) => {{
+        olog!($o, "Some({v})")
+    }};
 }
