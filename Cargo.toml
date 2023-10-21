@@ -3,10 +3,13 @@ name = "tracer"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
 log = "0.4.20"
 
 [dev-dependencies]
 rstest = "0.18.2"
+
+[features]
+default = []
+trait = []
+macro = []
