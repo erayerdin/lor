@@ -14,7 +14,7 @@
 
 use std::fmt::Debug;
 
-trait ResultLog<T, E> {
+pub trait ResultLog<T, E> {
     fn log(self) -> Result<T, E>;
 }
 
@@ -34,32 +34,5 @@ where
                 Err(e)
             }
         }
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[fixture]
-    fn r_ok<'a>() -> Result<&'a str, &'a str> {
-        Result::Ok("ok")
-    }
-
-    #[fixture]
-    fn r_err<'a>() -> Result<&'a str, &'a str> {
-        Result::Err("err")
-    }
-
-    #[rstest]
-    fn log_ok(r_ok: Result<&str, &str>) {
-        let r = r_ok.log();
-        assert_eq!(r, Ok("ok"));
-    }
-
-    #[rstest]
-    fn log_err(r_err: Result<&str, &str>) {
-        let r = r_err.log();
-        assert_eq!(r, Err("err"));
     }
 }

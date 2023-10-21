@@ -12,4 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub mod prelude;
+use rstest::{fixture, rstest};
+use tracer::prelude::ResultLog;
+
+#[fixture]
+fn r_ok<'a>() -> Result<&'a str, &'a str> {
+    Result::Ok("ok")
+}
+
+#[fixture]
+fn r_err<'a>() -> Result<&'a str, &'a str> {
+    Result::Err("err")
+}
+
+#[rstest]
+fn log_ok(r_ok: Result<&str, &str>) {
+    let r = r_ok.log();
+    assert_eq!(r, Ok("ok"));
+}
+
+#[rstest]
+fn log_err(r_err: Result<&str, &str>) {
+    let r = r_err.log();
+    assert_eq!(r, Err("err"));
+}
