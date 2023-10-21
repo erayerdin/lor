@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use rstest::{fixture, rstest};
 #[cfg(feature = "macro")]
-use tracer::olog;
+use lor::olog;
+use rstest::{fixture, rstest};
 
 #[cfg(feature = "macro")]
 #[fixture]

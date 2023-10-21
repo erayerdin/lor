@@ -1,3 +1,3 @@
-# tracer
+# lor
 
-`tracer` is a Rust crate that logs your `Result`s and `Option`s.
+`lor` is a Rust crate that logs your `Result`s and `Option`s.

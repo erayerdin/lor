@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use rstest::{fixture, rstest};
 #[cfg(feature = "trait")]
-use tracer::prelude::OptionLog;
+use lor::prelude::OptionLog;
+use rstest::{fixture, rstest};
 
 #[cfg(feature = "trait")]
 #[fixture]
