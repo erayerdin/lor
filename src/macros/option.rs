@@ -17,12 +17,12 @@
 /// the value is `Some` by using `olog!(o, "The value is {v}")`.
 #[macro_export]
 macro_rules! olog {
-    ($o:expr, $m:literal) => {{
+    ($o:expr, $some:literal) => {{
         use $crate::macros::log;
 
         match $o {
             Some(v) => {
-                let msg = $m.replace("{v}", &format!("{:?}", v));
+                let msg = $some.replace("{v}", &format!("{:?}", v));
                 log::trace!("{msg}");
                 Some(v)
             }
