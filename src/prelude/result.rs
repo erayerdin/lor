@@ -14,8 +14,16 @@
 
 use std::fmt::Debug;
 
+/// A trait for `Result` to log the value and error of it.
 pub trait ResultLog<T, E> {
+    /// Simply logs the `Ok` and `Err`.
     fn log(self) -> Result<T, E>;
+
+    /// Logs the `Ok` and `Err` with custom format.
+    /// `{v}` in `ok` parameter will be replaced with
+    /// the value of `Ok` and `{e}` in `err` parameter
+    /// will be replaced with the value of `Err`.
+    fn log_format(self, ok: &str, err: &str) -> Result<T, E>;
 }
 
 impl<T, E> ResultLog<T, E> for Result<T, E>
@@ -24,13 +32,19 @@ where
     E: Debug,
 {
     fn log(self) -> Result<T, E> {
+        self.log_format("Ok({v:?})", "Err({e:?})")
+    }
+
+    fn log_format(self, ok: &str, err: &str) -> Result<T, E> {
         match self {
             Ok(v) => {
-                log::trace!("Ok({v:?})");
+                let msg = ok.replace("{v}", &format!("{v:?}"));
+                log::trace!("{msg}");
                 Ok(v)
             }
             Err(e) => {
-                log::error!("Err({e:?})");
+                let msg = err.replace("{e}", &format!("{e:?}"));
+                log::error!("{msg}");
                 Err(e)
             }
         }

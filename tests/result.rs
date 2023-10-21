@@ -26,13 +26,31 @@ fn r_err<'a>() -> Result<&'a str, &'a str> {
 }
 
 #[rstest]
-fn log_ok(r_ok: Result<&str, &str>) {
+fn log_with_ok(r_ok: Result<&str, &str>) {
     let r = r_ok.log();
     assert_eq!(r, Ok("ok"));
 }
 
 #[rstest]
-fn log_err(r_err: Result<&str, &str>) {
+fn log_with_err(r_err: Result<&str, &str>) {
     let r = r_err.log();
+    assert_eq!(r, Err("err"));
+}
+
+#[rstest]
+fn log_format_with_ok(r_ok: Result<&str, &str>) {
+    let r = r_ok.log_format(
+        "Result is ok and value is: {v}",
+        "Result is err and error is: {e}",
+    );
+    assert_eq!(r, Ok("ok"));
+}
+
+#[rstest]
+fn log_format_with_err(r_err: Result<&str, &str>) {
+    let r = r_err.log_format(
+        "Result is ok and value is: {v}",
+        "Result is err and error is: {e}",
+    );
     assert_eq!(r, Err("err"));
 }
