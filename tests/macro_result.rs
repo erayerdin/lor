@@ -12,22 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[macro_export]
-macro_rules! rlog {
-    ($r:expr, ok=$ok:literal, err=$err:literal) => {{
-        use $crate::macros::log;
+use rstest::{fixture, rstest};
+use tracer::rlog;
 
-        match $r {
-            Ok(v) => {
-                let msg = $ok.replace("{v}", &format!("{:?}", v));
-                log::trace!("{}", msg);
-                Ok(v)
-            }
-            Err(e) => {
-                let msg = $err.replace("{e}", &format!("{:?}", e));
-                log::error!("{}", msg);
-                Err(e)
-            }
-        }
-    }};
+#[fixture]
+fn r_ok<'a>() -> Result<&'a str, &'a str> {
+    Ok("ok")
+}
+
+#[fixture]
+fn r_err<'a>() -> Result<&'a str, &'a str> {
+    Err("err")
+}
+
+#[rstest]
+fn log_format_with_ok(r_ok: Result<&str, &str>) {
+    let r = rlog!(r_ok, ok = "Result is ok: {v}", err = "Result is err: {e}");
+    assert_eq!(r, Ok("ok"));
+}
+
+#[rstest]
+fn log_format_with_err(r_err: Result<&str, &str>) {
+    let r = rlog!(r_err, ok = "Result is ok: {v}", err = "Result is err: {e}");
+    assert_eq!(r, Err("err"));
 }

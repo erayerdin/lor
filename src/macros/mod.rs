@@ -13,6 +13,7 @@
 // limitations under the License.
 
 pub mod option;
+
 pub mod result;
 
 pub use log;
