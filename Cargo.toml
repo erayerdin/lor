@@ -7,3 +7,7 @@ edition = "2021"
 
 [dependencies]
 log = "0.4.20"
+
+[dev-dependencies]
+mockall = "0.11.4"
+rstest = "0.18.2"
