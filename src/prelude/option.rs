@@ -22,6 +22,7 @@ pub trait OptionLog<T> {
     /// replaced with the value of `Some`.
     fn log_format(self, some: &str) -> Option<T>;
 
+    /// Simply logs the value of the option.
     fn log(self) -> Option<T>;
 }
 
