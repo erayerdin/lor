@@ -21,6 +21,8 @@ pub trait OptionLog<T> {
     /// format. `{v}` in `some` parameter will be
     /// replaced with the value of `Some`.
     fn log_format(self, some: &str) -> Option<T>;
+
+    fn log(self) -> Option<T>;
 }
 
 impl<T> OptionLog<T> for Option<T>
@@ -36,5 +38,9 @@ where
             }
             None => None,
         }
+    }
+
+    fn log(self) -> Option<T> {
+        self.log_format("Some({v})")
     }
 }

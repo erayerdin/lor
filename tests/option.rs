@@ -36,3 +36,15 @@ fn log_format_with_none(o_none: Option<&str>) {
     let o = o_none.log_format("There is no value.");
     assert_eq!(o, None)
 }
+
+#[rstest]
+fn log_with_some(o_some: Option<&str>) {
+    let o = o_some.log();
+    assert_eq!(o, Some("foo"))
+}
+
+#[rstest]
+fn log_with_none(o_none: Option<&str>) {
+    let o = o_none.log();
+    assert_eq!(o, None)
+}
